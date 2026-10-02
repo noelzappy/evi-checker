@@ -2,27 +2,21 @@
 
 A local web application that reads a JSON release report and determines whether a software release is READY or BLOCKED. It validates the data contract, applies readiness rules to every check including optional ones, and displays specific reasons for any blocking conditions. This is a completeness-checking prototype, not production deployment software.
 
+Written in TypeScript (strict mode). Vite compiles it for the browser and Vitest runs the tests. There are no runtime dependencies.
+
 ## Launch
 
-**Primary method** (requires Python 3):
-```
-python3 -m http.server 8000
-```
-Then open http://localhost:8000
+Requires Node.js 18 or newer (developed on Node 22).
 
-**Alternative** (via npm):
 ```
-npm start
+npm install
+npm run dev
 ```
-This runs the same Python command.
+Then open http://localhost:8000 (if that port is busy, Vite prints the one it picked). `npm start` is an alias for `npm run dev`.
 
-**Alternative** (if Python unavailable):
-```
-npx serve .
-```
-Then open the URL it prints.
+**Production build** (optional): `npm run build` writes a static site to `dist/`, and `npm run preview` serves it on the same port.
 
-**Note**: Opening `index.html` directly via `file://` will not work due to ES module CORS restrictions and will display an error. Use a static server.
+**Note**: Opening `index.html` directly via `file://` will not work. The browser cannot run TypeScript, so the Vite dev server (or the built `dist/` folder) is required.
 
 ## Run the tests
 
@@ -31,10 +25,10 @@ npm install
 npm test
 ```
 
-Watch mode with auto-rerun on file changes:
-```
-npm run test:watch
-```
+Other useful commands:
+- `npm run typecheck` runs the TypeScript compiler in strict mode with no output.
+- `npm run check` runs the typecheck and then the tests.
+- `npm run test:watch` re-runs tests on file changes.
 
 ## How to use
 
@@ -76,15 +70,17 @@ Evidence is a supplied reference string only. The app never fetches it or verifi
 ├── index.html               Entry point; defines UI layout
 ├── style.css                Styles for the application
 ├── package.json             Dependencies and npm scripts
+├── tsconfig.json            Strict TypeScript settings
+├── vite.config.ts           Dev server, build and Vitest settings
 ├── sample-release.json      Example release report
 ├── CONTRACT.md              Precise data contract and validation rules
 ├── docs-Candidate_Brief.txt Original requirements and scope
 ├── README.md                This file
 ├── src/
-│   ├── checker.js           Pure logic: parse, validate, evaluate (ES module)
-│   └── app.js               UI layer; DOM binding and user interaction
+│   ├── checker.ts           Pure logic and types: parse, validate, evaluate
+│   └── app.ts               UI layer; DOM binding and user interaction
 └── test/
-    ├── checker.test.js      Vitest test suite with reproducible cases
+    ├── checker.test.ts      Vitest test suite with reproducible cases
     └── fixtures/            JSON fixtures for test scenarios
 ```
 
@@ -106,22 +102,24 @@ Evidence is a supplied reference string only. The app never fetches it or verifi
 - No evidence verification by design; evidence is treated as a reference string only.
 - Large files (several MB) are rendered in a single table without pagination.
 - Tested in Chromium only.
+- Needs Node.js and `npm install` to run; it is not a single static file.
 
 ## Tools and AI used
 
-Claude Code (Anthropic) was used to draft the code, tests, and this README from the brief. Vitest provides the test framework. Node 22 and Python 3 are required for local development. Playwright/Chromium was used for browser smoke testing. The candidate reviewed and verified all output.
+Claude Code (Anthropic) was used to draft the code, tests, and this README from the brief. TypeScript 5 in strict mode, Vite 7 for the dev server and build, and Vitest 3 for tests. Node 22 was used for development. Playwright/Chromium was used for browser smoke testing. The candidate reviewed and verified all output.
 
 ## What I verified myself
 
-- Ran the automated test suite with `npm test`: 42 of 42 tests passed.
+- Ran `npm run typecheck` with no errors and `npm test`: 42 of 42 tests passed.
+- Ran `npm run build` and confirmed the production bundle builds.
 - Loaded the supplied sample in the browser and saw BLOCKED with the two expected blockers (Payment workflow failed; Audit trail missing evidence) and one warning (UI text check failed).
 - Loaded an all-required-passed report and saw READY with no blockers.
 - Pasted malformed JSON and saw a clear error message with no stale result displayed.
-- Read every function in `src/checker.js` and can explain each one.
+- Read every function in `src/checker.ts` and can explain each one.
 
 ## Tests
 
-The test suite in `test/checker.test.js` uses Vitest with reproducible test fixtures. Run `npm test` to execute all cases. The table below is a summary; the suite holds 42 tests in total. Last run: 42 passed, 0 failed.
+The test suite in `test/checker.test.ts` uses Vitest with reproducible test fixtures. Run `npm test` to execute all cases. The table below is a summary; the suite holds 42 tests in total. Last run: 42 passed, 0 failed.
 
 | Test | Input (fixture) | Expected | Actual |
 |------|-----------------|----------|--------|

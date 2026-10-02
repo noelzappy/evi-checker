@@ -1,6 +1,6 @@
-# Module contract: `src/checker.js`
+# Module contract: `src/checker.ts`
 
-Pure ES module. No DOM access, no I/O, no fetching. Browser and vitest both import it.
+Pure TypeScript module. No DOM access, no I/O, no fetching. Browser (via Vite) and vitest both import it. Exported types: `Status`, `Check`, `Report`, `Verdict`, `ResultKind`, `ParseResult`, `Readiness`, `Result`.
 
 ```js
 export const STATUSES = ['passed', 'failed', 'not_run'];
@@ -13,8 +13,11 @@ export function parseJson(text)
 // Checks EVERY check (optional ones too) and collects ALL errors, not just the first.
 export function validateReport(data)  // -> string[]
 
-// Step 3. Readiness. Assumes data already passed validateReport.
-export function evaluateReadiness(data)
+// Type guard, true exactly when validateReport returns [].
+export function isValidReport(data: unknown): data is Report
+
+// Step 3. Readiness. Takes a Report, so callers narrow with isValidReport first.
+export function evaluateReadiness(report: Report)
 // -> { status: 'READY' | 'BLOCKED', blockers: string[], warnings: string[] }
 
 // Step 4. One-shot entry point used by the UI. Never throws.

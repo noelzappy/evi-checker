@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import fs from 'node:fs';
-import { checkRelease, validateReport, evaluateReadiness, parseJson } from '../src/checker.js';
+import { checkRelease, validateReport, evaluateReadiness, isValidReport, parseJson, type Result } from '../src/checker';
 
-const fixtureText = (name) =>
+const fixtureText = (name: string): string =>
   fs.readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8');
-const load = (name) => fixtureText(`${name}.json`);
+const load = (name: string): string => fixtureText(`${name}.json`);
 
 const NO_REQUIRED =
   'No required checks found. At least one required check must exist.';
@@ -79,7 +79,8 @@ describe('reports that are ready', () => {
 
   it('gives the same READY answer when the readiness step is called directly', () => {
     const parsed = parseJson(load('all-required-passed'));
-    expect(parsed.ok).toBe(true);
+    if (!parsed.ok) throw new Error('fixture did not parse');
+    if (!isValidReport(parsed.data)) throw new Error('fixture is not a valid report');
     const outcome = evaluateReadiness(parsed.data);
     expect(outcome.status).toBe('READY');
     expect(outcome.blockers).toEqual([]);
@@ -236,24 +237,26 @@ describe('malformed input', () => {
     expect(result.status).toBe('BLOCKED');
     expect(result.kind).toBe('invalid_json');
     expect(result.blockers).toHaveLength(1);
-    expect(result.blockers[0].startsWith('Invalid JSON: ')).toBe(true);
+    expect(result.blockers[0]?.startsWith('Invalid JSON: ')).toBe(true);
     expect(result.checks).toEqual([]);
     expect(result.release).toBeNull();
   });
 
   it('treats an empty string as invalid JSON without throwing', () => {
-    let result;
+    let result: Result | undefined;
     expect(() => {
       result = checkRelease('');
     }).not.toThrow();
+    if (!result) throw new Error('checkRelease returned nothing');
     expect(result.status).toBe('BLOCKED');
     expect(result.kind).toBe('invalid_json');
-    expect(result.blockers[0].startsWith('Invalid JSON: ')).toBe(true);
+    expect(result.blockers[0]?.startsWith('Invalid JSON: ')).toBe(true);
   });
 
   it('parseJson reports a failure instead of throwing', () => {
     const parsed = parseJson(fixtureText('malformed.json.txt'));
     expect(parsed.ok).toBe(false);
+    if (parsed.ok) throw new Error('expected a parse failure');
     expect(typeof parsed.error).toBe('string');
   });
 

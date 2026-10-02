@@ -5,11 +5,19 @@
   "type": "module",
   "description": "Reads a JSON release report and explains whether the release is READY or BLOCKED.",
   "scripts": {
-    "start": "python3 -m http.server 8000",
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "check": "npm run typecheck && npm test"
   },
   "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.6",
     "vitest": "^3.2.4"
   }
 }
