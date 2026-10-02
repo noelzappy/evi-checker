@@ -18,7 +18,7 @@ Then open http://localhost:8000 (if that port is busy, Vite prints the one it pi
 
 **Production build** (optional): `npm run build` writes a static site to `dist/`, and `npm run preview` serves it on the same port.
 
-**GitHub Pages:** `.github/workflows/deploy-pages.yml` builds with `BASE_PATH=/evi-checker/` and publishes `dist/` to Pages. It enables Pages on the first run; the repository must be public (or on a plan that allows Pages on private repositories).
+**GitHub Pages:** `.github/workflows/deploy-pages.yml` builds with `BASE_PATH=/evi-checker/` and publishes `dist/` to Pages on every push. One-time setup: in the repository's Settings, open Pages and set "Build and deployment" source to "GitHub Actions". The workflow's token cannot do this step itself. The repository must be public, or on a plan that allows Pages on private repositories.
 
 **Note**: Opening `index.html` directly via `file://` will not work. The browser cannot run TypeScript, so the Vite dev server (or the built `dist/` folder) is required.
 
