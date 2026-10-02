@@ -1,0 +1,15 @@
+{
+  "name": "release-evidence-checker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Reads a JSON release report and explains whether the release is READY or BLOCKED.",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4"
+  }
+}
