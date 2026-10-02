@@ -1,0 +1,7 @@
+{
+  "release": "optional-invalid-v1",
+  "checks": [
+    { "id": "login", "name": "Customer login", "required": true, "status": "passed", "evidence": "login-run-701" },
+    { "id": "copy", "name": "UI text check", "required": "false", "status": "passed", "evidence": "copy-run-702" }
+  ]
+}

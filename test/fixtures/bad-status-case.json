@@ -1,0 +1,6 @@
+{
+  "release": "bad-status-v1",
+  "checks": [
+    { "id": "login", "name": "Customer login", "required": true, "status": "Passed", "evidence": "login-run-601" }
+  ]
+}

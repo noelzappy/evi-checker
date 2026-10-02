@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Release Evidence Checker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Release Evidence Checker</h1>
+    <p class="note">Evidence is a supplied reference string; it is NOT fetched or verified.</p>
+
+    <section aria-labelledby="input-heading">
+      <h2 id="input-heading">Release report (JSON)</h2>
+      <label for="json-input" class="visually-hidden">Release report JSON</label>
+      <textarea id="json-input" rows="14" spellcheck="false" placeholder="Paste a release report here, or choose a file."></textarea>
+      <div class="controls">
+        <input type="file" id="file-input" accept=".json,application/json" aria-label="Choose a JSON file">
+        <button type="button" id="load-sample">Load sample</button>
+        <button type="button" id="check-btn" class="primary">Check release</button>
+        <button type="button" id="clear-btn">Clear</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="result-heading">
+      <h2 id="result-heading">Result</h2>
+      <div id="result" aria-live="polite"><p class="muted">No report checked yet.</p></div>
+    </section>
+  </main>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "release": "whitespace-evidence-v1",
+  "checks": [
+    { "id": "login", "name": "Customer login", "required": true, "status": "passed", "evidence": "   " }
+  ]
+}

@@ -1,0 +1,47 @@
+:root { --green: #1a7f37; --red: #c62828; --grey: #6b7280; --border: #d8dce2; }
+* { box-sizing: border-box; }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #1f2328; background: #f6f7f9; margin: 0; line-height: 1.45;
+}
+main { max-width: 900px; margin: 0 auto; padding: 1rem; }
+h1 { margin-bottom: 0.25rem; }
+h2 { font-size: 1.1rem; margin: 1.25rem 0 0.5rem; }
+.note, .muted { color: var(--grey); }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+textarea {
+  width: 100%; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.875rem; padding: 0.6rem; border: 1px solid var(--border); border-radius: 6px; resize: vertical;
+}
+.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 0.5rem; }
+button {
+  font: inherit; padding: 0.45rem 0.9rem; border: 1px solid var(--border);
+  border-radius: 6px; background: #fff; cursor: pointer;
+}
+button:hover { background: #eef0f3; }
+button.primary { background: #1f2328; color: #fff; border-color: #1f2328; }
+button.primary:hover { background: #3a4048; }
+
+.banner {
+  color: #fff; text-align: center; font-size: 2.5rem; font-weight: 800;
+  letter-spacing: 0.06em; padding: 1rem; border-radius: 8px;
+}
+.banner--ready { background: var(--green); }
+.banner--blocked { background: var(--red); }
+.banner small { display: block; font-size: 1rem; font-weight: 400; letter-spacing: 0; margin-top: 0.25rem; }
+
+#result ul { margin: 0.25rem 0; padding-left: 1.4rem; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; background: #fff; font-size: 0.9rem; }
+th, td { border: 1px solid var(--border); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: #eef0f3; }
+tbody tr:nth-child(even) { background: #f6f7f9; }
+td { overflow-wrap: anywhere; }
+tr.row--blocker td:first-child { border-left: 4px solid rgba(198, 40, 40, 0.45); }
+tr.row--warning td:first-child { border-left: 4px solid rgba(240, 160, 0, 0.55); }
+.status--passed { color: var(--green); font-weight: 600; }
+.status--failed { color: var(--red); font-weight: 600; }
+.status--not_run { color: var(--grey); font-weight: 600; }

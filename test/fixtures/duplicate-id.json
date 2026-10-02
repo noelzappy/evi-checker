@@ -1,0 +1,7 @@
+{
+  "release": "duplicate-id-v1",
+  "checks": [
+    { "id": "login", "name": "Customer login", "required": true, "status": "passed", "evidence": "login-run-501" },
+    { "id": "login", "name": "Customer login again", "required": true, "status": "passed", "evidence": "login-run-502" }
+  ]
+}
