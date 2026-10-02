@@ -4,6 +4,8 @@ A local web application that reads a JSON release report and determines whether 
 
 Written in TypeScript (strict mode). Vite compiles it for the browser and Vitest runs the tests. There are no runtime dependencies.
 
+**Live demo:** https://noelzappy.github.io/evi-checker/ (deployed from this repository by GitHub Actions on every push; the workflow runs the typecheck and tests before building).
+
 ## Launch
 
 Requires Node.js 18 or newer (developed on Node 22).
@@ -15,6 +17,8 @@ npm run dev
 Then open http://localhost:8000 (if that port is busy, Vite prints the one it picked). `npm start` is an alias for `npm run dev`.
 
 **Production build** (optional): `npm run build` writes a static site to `dist/`, and `npm run preview` serves it on the same port.
+
+**GitHub Pages:** `.github/workflows/deploy-pages.yml` builds with `BASE_PATH=/evi-checker/` and publishes `dist/` to Pages. It enables Pages on the first run; the repository must be public (or on a plan that allows Pages on private repositories).
 
 **Note**: Opening `index.html` directly via `file://` will not work. The browser cannot run TypeScript, so the Vite dev server (or the built `dist/` folder) is required.
 
@@ -93,6 +97,7 @@ Evidence is a supplied reference string only. The app never fetches it or verifi
 ├── package.json             Dependencies and npm scripts
 ├── tsconfig.json            Strict TypeScript settings
 ├── vite.config.ts           Dev server, build and Vitest settings
+├── .github/workflows/       GitHub Pages deployment
 ├── sample-release.json      Example release report
 ├── CONTRACT.md              Precise data contract and validation rules
 ├── docs-Candidate_Brief.txt Original requirements and scope
