@@ -1,0 +1,7 @@
+{
+  "release": "internal-tooling-v0.3.0",
+  "checks": [
+    { "id": "lint", "name": "Lint", "required": false, "status": "passed", "evidence": "ci-run-120" },
+    { "id": "typecheck", "name": "Type check", "required": false, "status": "passed", "evidence": "ci-run-121" }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "release": "auth-service-v5.0.1",
+  "checks": [
+    { "id": "unit", "name": "Unit test suite", "required": true, "status": "passed", "evidence": "ci-run-9001" },
+    { "id": "pen-test", "name": "Penetration test sign-off", "required": true, "status": "passed", "evidence": "   " },
+    { "id": "rollback", "name": "Rollback plan reviewed", "required": true, "status": "passed" },
+    { "id": "lint", "name": "Lint", "required": false, "status": "passed", "evidence": "ci-run-9002" }
+  ]
+}

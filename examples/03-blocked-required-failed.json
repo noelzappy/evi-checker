@@ -1,0 +1,9 @@
+{
+  "release": "billing-api-v1.9.0",
+  "checks": [
+    { "id": "unit", "name": "Unit test suite", "required": true, "status": "passed", "evidence": "ci-run-2201" },
+    { "id": "contract", "name": "API contract tests", "required": true, "status": "failed", "evidence": "ci-run-2202" },
+    { "id": "load", "name": "Load test", "required": true, "status": "not_run" },
+    { "id": "docs", "name": "API docs regenerated", "required": false, "status": "passed", "evidence": "docs-build-77" }
+  ]
+}

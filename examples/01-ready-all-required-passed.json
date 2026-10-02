@@ -1,0 +1,9 @@
+{
+  "release": "checkout-service-v2.4.0",
+  "checks": [
+    { "id": "unit", "name": "Unit test suite", "required": true, "status": "passed", "evidence": "ci-run-5531" },
+    { "id": "integration", "name": "Integration tests", "required": true, "status": "passed", "evidence": "ci-run-5532" },
+    { "id": "security-scan", "name": "Dependency vulnerability scan", "required": true, "status": "passed", "evidence": "snyk-report-2026-10-01" },
+    { "id": "changelog", "name": "Changelog updated", "required": true, "status": "passed", "evidence": "PR-884" }
+  ]
+}

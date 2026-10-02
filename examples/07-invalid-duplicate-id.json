@@ -1,0 +1,7 @@
+{
+  "release": "reporting-v2.0.0",
+  "checks": [
+    { "id": "unit", "name": "Unit test suite", "required": true, "status": "passed", "evidence": "ci-run-4410" },
+    { "id": "unit", "name": "Unit test suite (rerun)", "required": true, "status": "passed", "evidence": "ci-run-4411" }
+  ]
+}

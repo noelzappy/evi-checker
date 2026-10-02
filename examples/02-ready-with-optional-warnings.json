@@ -1,0 +1,10 @@
+{
+  "release": "mobile-app-v3.1.2",
+  "checks": [
+    { "id": "unit", "name": "Unit test suite", "required": true, "status": "passed", "evidence": "ci-run-7710" },
+    { "id": "e2e", "name": "End-to-end smoke tests", "required": true, "status": "passed", "evidence": "ci-run-7711" },
+    { "id": "perf", "name": "Performance benchmark", "required": false, "status": "not_run", "evidence": "" },
+    { "id": "a11y", "name": "Accessibility audit", "required": false, "status": "failed", "evidence": "axe-report-301" },
+    { "id": "screenshots", "name": "Visual regression", "required": false, "status": "passed", "evidence": "percy-build-918" }
+  ]
+}

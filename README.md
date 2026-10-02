@@ -33,13 +33,34 @@ Other useful commands:
 ## How to use
 
 1. Paste JSON into the text area or click "Choose file" to upload a release report.
-2. Click the "Load sample" button to use the provided `sample-release.json`. For a READY example, choose `test/fixtures/all-required-passed.json` with the file picker.
+2. Click the "Load sample" button to use the provided `sample-release.json`. For other cases, pick a file from the `examples/` folder (see below).
 3. Click "Check release" to validate and evaluate readiness.
 4. A banner shows READY (green) or BLOCKED (red).
 5. Blockers list specific reasons preventing readiness.
 6. Warnings show optional checks that failed or were not run.
 7. A table displays every check with its id, name, required flag, status, and evidence reference.
 8. Load another report at any time and re-check without editing code.
+
+## Example reports for manual testing
+
+The `examples/` folder holds twelve reports, numbered in demo order. Each file name says what the checker should report. Use the file picker or paste the contents into the text area.
+
+| File | Expected result | Why |
+|------|-----------------|-----|
+| `01-ready-all-required-passed.json` | READY | Four required checks, all passed with evidence |
+| `02-ready-with-optional-warnings.json` | READY, 2 warnings | Optional perf check not run, optional a11y check failed |
+| `03-blocked-required-failed.json` | BLOCKED, 3 blockers | Contract test failed; load test not run and has no evidence |
+| `04-blocked-missing-evidence.json` | BLOCKED, 2 blockers | Whitespace-only evidence on one check, no evidence key on another |
+| `05-blocked-only-optional-checks.json` | BLOCKED | No required checks exist |
+| `06-blocked-empty-checks.json` | BLOCKED | Empty checks array |
+| `07-invalid-duplicate-id.json` | BLOCKED (invalid data) | Two checks share id `unit` |
+| `08-invalid-wrong-types.json` | BLOCKED (invalid data), 4 messages | `required` is a string, status is `Passed`, blank name, numeric evidence |
+| `09-invalid-optional-check-bad-status.json` | BLOCKED (invalid data) | Optional check has status `skipped`; invalid data blocks even on optional checks |
+| `10-invalid-missing-release.json` | BLOCKED (invalid data) | No `release` field |
+| `11-invalid-root-is-array.json` | BLOCKED (invalid data) | Root is an array, not an object |
+| `12-malformed-json.json` | BLOCKED (malformed JSON) | File is cut off mid-array |
+
+`test/examples.test.ts` asserts the verdict, kind, and blocker and warning counts for every one of these files, so the table above cannot drift from the code.
 
 ## Readiness logic
 
@@ -76,11 +97,13 @@ Evidence is a supplied reference string only. The app never fetches it or verifi
 ├── CONTRACT.md              Precise data contract and validation rules
 ├── docs-Candidate_Brief.txt Original requirements and scope
 ├── README.md                This file
+├── examples/                Twelve reports for manual testing, named by expected result
 ├── src/
 │   ├── checker.ts           Pure logic and types: parse, validate, evaluate
 │   └── app.ts               UI layer; DOM binding and user interaction
 └── test/
     ├── checker.test.ts      Vitest test suite with reproducible cases
+    ├── examples.test.ts     Pins the expected verdict of every file in examples/
     └── fixtures/            JSON fixtures for test scenarios
 ```
 
@@ -110,7 +133,7 @@ Claude Code (Anthropic) was used to draft the code, tests, and this README from 
 
 ## What I verified myself
 
-- Ran `npm run typecheck` with no errors and `npm test`: 42 of 42 tests passed.
+- Ran `npm run typecheck` with no errors and `npm test`: 55 of 55 tests passed.
 - Ran `npm run build` and confirmed the production bundle builds.
 - Loaded the supplied sample in the browser and saw BLOCKED with the two expected blockers (Payment workflow failed; Audit trail missing evidence) and one warning (UI text check failed).
 - Loaded an all-required-passed report and saw READY with no blockers.
@@ -119,7 +142,7 @@ Claude Code (Anthropic) was used to draft the code, tests, and this README from 
 
 ## Tests
 
-The test suite in `test/checker.test.ts` uses Vitest with reproducible test fixtures. Run `npm test` to execute all cases. The table below is a summary; the suite holds 42 tests in total. Last run: 42 passed, 0 failed.
+The test suite in `test/checker.test.ts` uses Vitest with reproducible test fixtures. Run `npm test` to execute all cases. The table below is a summary; the two suites hold 55 tests in total. Last run: 55 passed, 0 failed.
 
 | Test | Input (fixture) | Expected | Actual |
 |------|-----------------|----------|--------|

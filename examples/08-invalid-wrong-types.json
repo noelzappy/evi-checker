@@ -1,0 +1,8 @@
+{
+  "release": "notifications-v1.2.0",
+  "checks": [
+    { "id": "unit", "name": "Unit test suite", "required": "true", "status": "passed", "evidence": "ci-run-6001" },
+    { "id": "e2e", "name": "End-to-end tests", "required": true, "status": "Passed", "evidence": "ci-run-6002" },
+    { "id": "lint", "name": "", "required": false, "status": "passed", "evidence": 42 }
+  ]
+}

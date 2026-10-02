@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 // Vite serves index.html and compiles the TypeScript in src/ on the fly.
 // Vitest reads the same file for its (default, Node) test environment.

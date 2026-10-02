@@ -1,0 +1,8 @@
+{
+  "release": "search-v4.4.0",
+  "checks": [
+    { "id": "unit", "name": "Unit test suite", "required": true, "status": "passed", "evidence": "ci-run-3100" },
+    { "id": "e2e", "name": "End-to-end tests", "required": true, "status": "passed", "evidence": "ci-run-3101" },
+    { "id": "perf", "name": "Performance benchmark", "required": false, "status": "skipped", "evidence": "" }
+  ]
+}

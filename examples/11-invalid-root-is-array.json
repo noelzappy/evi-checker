@@ -1,0 +1,3 @@
+[
+  { "id": "unit", "name": "Unit test suite", "required": true, "status": "passed", "evidence": "ci-run-1" }
+]
